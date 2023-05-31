@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>文学 暗記</title>
+</head>
+<body>
+    <button id="generate">生成</button>
+    <div id="mondai"></div>
+    <script>
+        const mondai = [
+            ["司馬遷","「史記」"],
+            ["ダンテ","「神曲」"],
+            ["ボッカチオ","「デカメロン」"],
+            ["シェイクスピア","「リア王」、「マクベス」"],
+            ["セルバンテス","「ドン・キホーテ」"],
+            ["ミルトン","「失楽園」"],
+            ["パスカル","「パンセ」"],
+            ["デフォー","「ロビンソン・クルーソー」"],
+            ["ゲーテ","「若きウェルテルの悩み」"],
+            ["スタンダール","「赤と黒」"],
+            ["バルザック","「谷間の百合」"],
+            ["ユゴー","「レ・ミゼラブル」"],
+            ["ドストエフスキー","「罪と罰」"],
+            ["トルストイ","「戦争と平和」"],
+            ["フローベール","「ボヴァリー夫人」"],
+            ["イプセン","「人形の家」"],
+            ["ゾラ","「居酒屋」、「ナナ」"],
+            ["モーパッサン","「女の一生」"],
+            ["アンドレ・ジード","「狭き門」"],
+            ["チェーホフ","「桜の園」、「三人姉妹」"],
+            ["デュ・ガール","「チボー家の人びと」"],
+            ["トマス・マン","「魔の山」"],
+            ["パール・バック","「大地」"],
+            ["ヘミングウェイ","「武器よさらば」"],
+            ["魯迅","「阿Q正伝」"],
+            ["ロレンス","「チャタレイ夫人の恋人」"],
+            ["ショーロホフ","「静かなるドン」"],
+            ["ミッチェル","「風と共に去りぬ」"],
+            ["スタインベック","「怒りの葡萄」"],
+            ["サルトン","「嘔吐」、「自由への道」"],
+            ["カミュ","「ペスト」、「異邦人」"]
+        ]
+
+        var mondai_div = document.querySelector("#mondai");
+        function randomInt(n){
+            return ~~(Math.random() * n);
+        }
+
+        function generate(){
+            var a = Array.from(mondai);
+            var content = "";
+            var i = a.length;
+            while(i > 0){
+                var n = randomInt(i);
+                content += `
+                <div>
+                    ${a[n][1]} : <span class="answer" data-ans="${a[n][0]}">回答を表示</span>
+                </div>`
+                a.splice(n, 1);
+                i--;
+            }
+            mondai_div.innerHTML = content;
+            var answers = document.querySelectorAll(".answer");
+            for(var j = 0; j < answers.length; j++){
+                answers[j].addEventListener("click", function(){
+                    if(this.innerHTML === "回答を表示"){
+                        this.innerHTML = this.dataset["ans"];
+                    }else{
+                        this.innerHTML =  "回答を表示";
+                    }
+                });
+            }
+        }
+
+        document.querySelector("#generate").addEventListener("click", function(){
+            generate();
+        });
+
+        generate();
+
+    </script>
+</body>
+</html>
