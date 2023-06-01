@@ -9,17 +9,21 @@
     <title>外国文学 暗記</title>
 </head>
 <body>
-    <button id="generate">生成</button>
-    <div id="mondai" class="carousel slide" data-bs-ride="carousel">
-        <div id="wrapper" class="wrapper"></div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#mondai" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">前へ</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#mondai" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">次へ</span>
-        </button>
+    <div class="container">
+        <div class="d-grid gap-2">
+            <button id="generate" class="btn btn-primary">再生成</button>
+        </div>
+        <div id="mondai" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
+            <div id="wrapper" class="wrapper border border-secondary rounded-2"></div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mondai" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">前へ</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mondai" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">次へ</span>
+            </button>
+        </div>
     </div>
 
     <script>
@@ -65,12 +69,14 @@
         function generate(){
             var a = Array.from(mondai);
             var content = "";
-            var i = a.length;
+            var i = k = a.length;
             while(i > 0){
                 var n = randomInt(i);
                 content += `
                 <div class="carousel-item${i == mondai.length ? " active" : ""}">
-                    ${a[n][1]} : <span class="answer" data-ans="${a[n][0]}">回答を表示</span>
+                    <p class="titles">${a[n][1]}</p>
+                    著者: <span class="answer border border-secondary rounded-2 container" data-ans="${a[n][0]}">回答を表示</span>
+                    <p class="counter">${k - i + 1} / ${k}</p>
                 </div>`
                 a.splice(n, 1);
                 i--;
