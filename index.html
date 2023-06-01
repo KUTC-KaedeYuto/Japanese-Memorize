@@ -5,11 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>外国文学 暗記</title>
 </head>
 <body>
-    <button id="generate">生成</button>
-    <div id="mondai"></div>
+    <div class="container">
+        <div class="d-grid gap-2">
+            <button id="generate" class="btn btn-primary">再生成</button>
+        </div>
+        <div id="mondai" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
+            <div id="wrapper" class="wrapper border border-secondary rounded-2"></div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mondai" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">前へ</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mondai" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">次へ</span>
+            </button>
+        </div>
+    </div>
+
     <script>
         const mondai = [
             ["司馬遷","「史記」"],
@@ -45,7 +61,7 @@
             ["カミュ","「ペスト」、「異邦人」"]
         ]
 
-        var mondai_div = document.querySelector("#mondai");
+        var wrapper = document.querySelector("#wrapper");
         function randomInt(n){
             return ~~(Math.random() * n);
         }
@@ -53,17 +69,19 @@
         function generate(){
             var a = Array.from(mondai);
             var content = "";
-            var i = a.length;
+            var i = k = a.length;
             while(i > 0){
                 var n = randomInt(i);
                 content += `
-                <div>
-                    ${a[n][1]} : <span class="answer" data-ans="${a[n][0]}">回答を表示</span>
+                <div class="carousel-item${i == mondai.length ? " active" : ""}">
+                    <p class="titles">${a[n][1]}</p>
+                    著者: <span class="answer border border-secondary rounded-2 container" data-ans="${a[n][0]}">回答を表示</span>
+                    <p class="counter">${k - i + 1} / ${k}</p>
                 </div>`
                 a.splice(n, 1);
                 i--;
             }
-            mondai_div.innerHTML = content;
+            wrapper.innerHTML = content;
             var answers = document.querySelectorAll(".answer");
             for(var j = 0; j < answers.length; j++){
                 answers[j].addEventListener("click", function(){
@@ -83,5 +101,6 @@
         generate();
 
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
