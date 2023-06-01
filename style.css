@@ -1,3 +1,16 @@
 .answer{
     border: solid #666 1px;
 }
+
+.wrapper{
+    border: solid #000 2px;
+    background-color: #666;
+    height: 10em;
+}
+
+.carousel-item{
+    color: #f0f0f0;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
